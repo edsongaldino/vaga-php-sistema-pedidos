@@ -1,0 +1,27 @@
+a.nav-link{
+    color: #fff !important;
+}
+
+a.nav-link:hover{
+    text-decoration: underline !important;
+}
+
+table {
+    border-collapse: inherit !important;
+}
+
+.salvar-produto{
+    background-color: darkcyan;
+    padding: 10px 35px;
+    float: right;
+    border: 0px;
+    color: #FFF;
+}
+
+.salvar-produto:hover{
+    background-color: rgb(1, 77, 77);
+}
+
+.cadastro .form-control{
+    height: 60px !important;
+}
