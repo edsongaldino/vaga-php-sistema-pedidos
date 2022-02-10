@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\OrderProducts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class OrderProductsController extends Controller
 {
@@ -51,7 +52,7 @@ class OrderProductsController extends Controller
         $order_products->price = $request->price;
         $order_products->save();
 
-        return redirect()->back()->with('success', 'Produto Adicionado!');  
+        return Redirect::to('/order/'.$request->order_id.'/edit')->with('success', 'Produto Adicionado!');
     }
 
     /**
