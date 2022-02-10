@@ -34,4 +34,18 @@ class UserController extends Controller
             return false;
         }
     }
+
+    public function listUsers(Request $request){
+
+        $data = [];
+
+        if($request->has('q')){
+            $search = $request->q;
+            $data = User::select("id","name")
+            		->where('name','LIKE',"%$search%")
+            		->get();
+        }
+        return response()->json($data);
+    }
+    
 }

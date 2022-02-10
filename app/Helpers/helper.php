@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Helpers;
+
+use App\Http\Controllers\OrderController;
+use App\Models\Order;
 use Illuminate\Support\Carbon;
 
 class Helper{
@@ -60,6 +63,13 @@ class Helper{
 
 		$data = Carbon::parse($data)->format('Y-m-d');
 		return Helper::data_br($data);
+		
+	}
+
+	public static function totalPrice($id){
+
+		$valor = OrderController::getTotal($id);
+		return $valor;
 		
 	}
 	

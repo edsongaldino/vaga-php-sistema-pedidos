@@ -10,9 +10,13 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <link href="{{ asset('/vendor/sweetalert/dist/sweetalert.css') }}" rel="stylesheet" type="text/css" />
-	
+	<link href="/assets/css/select2.min.css" rel="stylesheet" />
 	<link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/custom.css">
+
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/select2.min.js"></script>
+    
 	</head>
 	<body>
 
@@ -22,7 +26,7 @@
                 <a class="nav-link active" href="{{ route('products') }}"><i class="fa fa-home" aria-hidden="true"></i> Produtos</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><i class="fa fa-cart-plus" aria-hidden="true"></i> Pedidos</a>
+                <a class="nav-link" href="{{ route('orders') }}"><i class="fa fa-cart-plus" aria-hidden="true"></i> Pedidos</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('logout') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a>

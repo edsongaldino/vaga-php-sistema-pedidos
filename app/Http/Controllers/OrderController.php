@@ -14,7 +14,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::all();
+        return view('orders.index', compact('orders'));
     }
 
     /**
@@ -24,7 +25,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        return view('orders.create');
     }
 
     /**
@@ -35,7 +36,11 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $order = new Order();
+        $order->user_id = $request->itemName;
+        $order->save();
+
+        return view('orders.products', compact('order')); 
     }
 
     /**
@@ -55,9 +60,10 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function edit(Order $order)
+    public function edit($id)
     {
-        //
+        $order = Order::find($id);
+        return view('orders.products', compact('order'));
     }
 
     /**
@@ -81,5 +87,18 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+
+    public static function getTotal($id){
+
+        $order = Order::find($id);
+        $totalPrice = 0;
+        foreach($order->items as $item){
+            $tItem = $item->price*$item->quantity;
+            $totalPrice = $totalPrice+$tItem;
+        }
+
+        return $totalPrice;
+
     }
 }

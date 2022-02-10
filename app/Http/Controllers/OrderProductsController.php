@@ -35,7 +35,23 @@ class OrderProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $itemCheck = $this->verificaDuplicidade($request->order_id, $request->product_id);
+        if($itemCheck){
+
+            OrderProducts::where('order_id', $itemCheck->order_id)->where('product_id', $itemCheck->product_id)->update(['quantity' => $request->quantity]);
+            return redirect()->back()->with('info', 'Este produto ja está no carrinho! Alteramos somente a quantidade informada.'); 
+
+        }
+
+        $order_products = new OrderProducts();
+        $order_products->order_id = $request->order_id;
+        $order_products->product_id = $request->product_id;
+        $order_products->quantity = $request->quantity;
+        $order_products->price = $request->price;
+        $order_products->save();
+
+        return redirect()->back()->with('success', 'Produto Adicionado!');  
     }
 
     /**
@@ -78,8 +94,25 @@ class OrderProductsController extends Controller
      * @param  \App\Models\OrderProducts  $orderProducts
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OrderProducts $orderProducts)
+    public function destroy(Request $request)
     {
-        //
+        $orderProduct = OrderProducts::where('order_id', $request->order_id)->where('product_id', $request->product_id)->delete();
+        if($orderProduct):
+            return true;
+        else:
+            $response_array['status'] = 'success';    
+            echo json_encode($response_array);
+        endif;
+    }
+
+    public function verificaDuplicidade($order_id, $product_id){
+
+        $ItemOrder = OrderProducts::where('order_id', $order_id)->where('product_id', $product_id)->first();
+
+        if(isset($ItemOrder)){
+            return $ItemOrder;
+        }else{
+            return false;
+        }
     }
 }
